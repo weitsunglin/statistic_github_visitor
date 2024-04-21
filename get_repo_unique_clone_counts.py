@@ -42,9 +42,14 @@ def get_all_repos_unique_clones(username, token, exclude_repo=None):
     plt.title('Unique Clones per Repository')
     plt.xticks(rotation=90)
     plt.tight_layout()
+    
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, int(yval), va='bottom')  # va: vertical alignment
+            
     plt.savefig('github_clone_counts.png')
 
 # Example usage with a placeholder token and username
 # Replace 'username' and 'token' with your actual GitHub username and token
 # Replace 'weitsunglin' with the repository you want to exclude
-get_all_repos_unique_clones('username', api_key, exclude_repo='weitsunglin')
+get_all_repos_unique_clones('weitsunglin', api_key, exclude_repo='weitsunglin')
