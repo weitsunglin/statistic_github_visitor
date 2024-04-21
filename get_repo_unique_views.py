@@ -49,12 +49,6 @@ def get_all_repos_unique_views(username, token, exclude_repo=None):
     plt.title('Total Unique Views per Repository')
     plt.xticks(rotation=90)  # Rotate x-axis labels for readability
     plt.tight_layout()  # Adjust layout to avoid squeezing
-
-    # Add text annotations on each bar for the specific view counts
-    for bar in bars:
-        yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, yval, int(yval), va='bottom', ha='center')  # Vertical and horizontal alignment
-
     plt.savefig('github_visitor.png')
 
 # Example usage, replace 'username', 'token', and the repository to exclude
