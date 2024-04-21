@@ -10,46 +10,52 @@ def get_all_repos_unique_views(username, token, exclude_repo=None):
     repos_response = requests.get(repos_url, headers=headers)
     repositories = repos_response.json()
     
-    # 检查是否有错误信息
+    # Check for error messages
     if isinstance(repositories, dict) and repositories.get('message', ''):
         print(repositories['message'])
         return
 
-    # 存储每个存储库的唯一视图数据
+    # Store unique view data for each repository
     all_unique_views_data = []
 
     for repo in repositories:
         if repo['name'] == exclude_repo:
-            continue  # 跳过指定排除的存储库
+            continue  # Skip the specified repository
 
         views_url = f"https://api.github.com/repos/{username}/{repo['name']}/traffic/views"
         views_response = requests.get(views_url, headers=headers)
         views_data = views_response.json()
 
-        # 检查是否有错误信息
+        # Check for error messages
         if "message" in views_data:
             print(f"Error fetching views for {repo['name']}: {views_data['message']}")
             continue
 
-        # 累加唯一视图数
+        # Sum up unique view counts
         total_unique_views = sum(view['uniques'] for view in views_data.get('views', []))
         all_unique_views_data.append({'Repository': repo['name'], 'Total Unique Views': total_unique_views})
 
-    # 转换成 DataFrame
+    # Convert to DataFrame
     df = pd.DataFrame(all_unique_views_data)
 
-    # 排序以显示最多唯一视图的存储库在前
+    # Sort to display repositories with most unique views at the top
     df = df.sort_values(by="Total Unique Views", ascending=False)
 
-    # 绘制直条图
+    # Plot the bar chart
     plt.figure(figsize=(12, 8))
-    plt.bar(df["Repository"], df["Total Unique Views"], color='purple')
+    bars = plt.bar(df["Repository"], df["Total Unique Views"], color='purple')
     plt.xlabel('Repository')
     plt.ylabel('Total Unique Views')
     plt.title('Total Unique Views per Repository')
-    plt.xticks(rotation=90)  # 旋转 x 轴标签以便阅读
-    plt.tight_layout()  # 调整布局以避免挤压
+    plt.xticks(rotation=90)  # Rotate x-axis labels for readability
+    plt.tight_layout()  # Adjust layout to avoid squeezing
+
+    # Add text annotations on each bar for the specific view counts
+    for bar in bars:
+        yval = bar.get_height()
+        plt.text(bar.get_x() + bar.get_width()/2, yval, int(yval), va='bottom', ha='center')  # Vertical and horizontal alignment
+
     plt.savefig('github_visitor.png')
 
-# 使用示例，需替换用户名、token及需要排除的仓库名称
+# Example usage, replace 'username', 'token', and the repository to exclude
 get_all_repos_unique_views('username', api_key, exclude_repo='weitsunglin')
