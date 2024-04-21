@@ -1,0 +1,52 @@
+name: Run Python Script
+
+on:
+  schedule:
+    - cron: '*/1 * * * *'  # 每 1 分钟触发一次
+  push:
+    branches:
+      - main  # 或者您預設的分支名稱
+  workflow_dispatch:
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.8'  # 選擇您需要的 Python 版本
+    - name: Install dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Run script
+      run: |
+        python get_repo_unique_clone_counts.py
+        python get_repo_unique_views.py
+        
+    - name: Upload generated image
+      uses: actions/upload-artifact@v2
+      with:
+          name: generated-image
+          path: |
+            github_clone_counts.png
+            github_visitor.png
+
+    - name: Commit and push to another repository
+      env:
+        ACCESS_TOKEN: ${{ secrets.API_KEY }}
+      run: |
+        git config --global user.email "weitsunglin@igs.com"
+        git config --global user.name "weitsunglin"
+        git clone https://github.com/weitsunglin/weitsunglin.git
+        cp github_clone_counts.png weitsunglin/code_exp.png
+        cp github_visitor.png weitsunglin/code_exp.png
+        cd weitsunglin
+        git add code_exp.png
+        if [[ $(git status --porcelain) ]]; then
+          git commit -m "Update from GitHub Actions"
+          git push https://weitsunglin:${ACCESS_TOKEN}@github.com/weitsunglin/weitsunglin.git main
+        else
+          echo "No changes to commit."
+        fi
