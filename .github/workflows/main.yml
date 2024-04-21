@@ -48,7 +48,8 @@ jobs:
         cp github_clone_counts.png weitsunglin/github_clone_counts.png
         cp github_visitor.png weitsunglin/github_visitor.png
         cd weitsunglin
-        git add code_exp.png
+        git add github_clone_counts.png
+        git add github_visitor.png
         if [[ $(git status --porcelain) ]]; then
           git commit -m "Update from GitHub Actions"
           git push https://weitsunglin:${ACCESS_TOKEN}@github.com/weitsunglin/weitsunglin.git main
