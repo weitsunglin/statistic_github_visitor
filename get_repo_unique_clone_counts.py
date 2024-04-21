@@ -39,7 +39,7 @@ def get_all_repos_unique_clones(username, token):
     df = df.sort_values(by="Unique Clones", ascending=False)
 
     # Plot the bar chart
-    plt.figure(figsize=(5, 3))
+    plt.figure(figsize=(12, 8))
     plt.bar(df["Repository"], df["Unique Clones"], color='blue')
     plt.xlabel('Repository')
     plt.ylabel('Unique Clones')
