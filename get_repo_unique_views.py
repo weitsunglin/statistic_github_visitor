@@ -46,7 +46,7 @@ def get_all_repos_unique_views(username, token):
     plt.title('Total Unique Views per Repository')
     plt.xticks(rotation=90)  # 旋轉 x 軸標籤以便閱讀
     plt.tight_layout()  # 調整布局以避免擠壓
-    plt.show()
+    plt.savefig('github_visitor.png')
 
 # 使用範例，請替換以下資訊
 get_all_repos_unique_views('weitsunglin', api_key)
