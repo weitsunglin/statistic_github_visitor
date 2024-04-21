@@ -46,7 +46,8 @@ def get_all_repos_unique_clones(username, token):
     plt.title('Unique Clones per Repository')
     plt.xticks(rotation=90)  # Rotate x-axis labels for readability
     plt.tight_layout()  # Adjust layout to avoid squeezing
-    plt.show()
+    plt.savefig('github_clone_counts.png')
+
 
 # Example usage with a placeholder token and username
 # Replace 'username' and 'token' with your actual GitHub username and token
