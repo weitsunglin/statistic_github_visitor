@@ -53,4 +53,4 @@ def get_all_repos_unique_clones(username, token, exclude_repo=None):
 # Example usage with a placeholder token and username
 # Replace 'username' and 'token' with your actual GitHub username and token
 # Replace 'weitsunglin' with the repository you want to exclude
-get_all_repos_unique_clones('username', api_key, exclude_repo='weitsunglin')
+get_all_repos_unique_clones('weitsunglin', api_key, exclude_repo='weitsunglin')
