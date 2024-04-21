@@ -36,7 +36,7 @@ jobs:
           name: generated-image
           path: |
             github_clone_counts.png
-            github_visitor.png
+            github_top10_visitors.png
 
     - name: Commit and push to another repository
       env:
@@ -46,7 +46,7 @@ jobs:
         git config --global user.name "weitsunglin"
         git clone https://github.com/weitsunglin/weitsunglin.git
         cp github_clone_counts.png weitsunglin/github_clone_counts.png
-        cp github_visitor.png weitsunglin/github_visitor.png
+        cp github_top10_visitors.png weitsunglin/github_top10_visitors.png
         cd weitsunglin
         git add github_clone_counts.png
         git add github_visitor.png
