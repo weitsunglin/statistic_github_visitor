@@ -36,7 +36,7 @@ def get_all_repos_unique_clones(username, token, exclude_repo=None):
     # 排序並取前10個有最多Unique Clones的repositories
     df = df.sort_values(by="Unique Clones", ascending=False).head(10)
 
-    plt.figure(figsize=(12, 8))
+    plt.figure(figsize=(6, 4))
     bars = plt.bar(df["Repository"], df["Unique Clones"], color='blue')
     plt.xlabel('Repository')
     plt.ylabel('Unique Clones')
