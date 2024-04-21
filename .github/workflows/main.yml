@@ -40,8 +40,8 @@ jobs:
         git config --global user.email "weitsunglin@igs.com"
         git config --global user.name "weitsunglin"
         git clone https://github.com/weitsunglin/weitsunglin.git
-        cp github_clone_counts.png weitsunglin/code_exp.png
-        cp github_visitor.png weitsunglin/code_exp.png
+        cp github_clone_counts.png weitsunglin/github_clone_counts.png
+        cp github_visitor.png weitsunglin/github_visitor.png
         cd weitsunglin
         git add code_exp.png
         if [[ $(git status --porcelain) ]]; then
