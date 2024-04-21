@@ -35,18 +35,16 @@ def get_all_repos_unique_views(username, token, exclude_repo=None):
         total_unique_views = sum(view['uniques'] for view in views_data.get('views', []))
         all_unique_views_data.append({'Repository': repo['name'], 'Total Unique Views': total_unique_views})
 
-    # Convert to DataFrame
+    # Convert to DataFrame and sort to get the top 10 repositories with the most unique views
     df = pd.DataFrame(all_unique_views_data)
-
-    # Sort to display repositories with most unique views at the top
-    df = df.sort_values(by="Total Unique Views", ascending=False)
+    df = df.sort_values(by="Total Unique Views", ascending=False).head(10)
 
     # Plot the bar chart
     plt.figure(figsize=(12, 8))
     bars = plt.bar(df["Repository"], df["Total Unique Views"], color='purple')
     plt.xlabel('Repository')
     plt.ylabel('Total Unique Views')
-    plt.title('Total Unique Views per Repository')
+    plt.title('Top 10 Repositories by Total Unique Views')
     plt.xticks(rotation=90)  # Rotate x-axis labels for readability
     plt.tight_layout()  # Adjust layout to avoid squeezing
 
@@ -55,7 +53,7 @@ def get_all_repos_unique_views(username, token, exclude_repo=None):
         yval = bar.get_height()
         plt.text(bar.get_x() + bar.get_width()/2, yval, int(yval), va='bottom', ha='center')  # Vertical and horizontal alignment
 
-    plt.savefig('github_visitor.png')
+    plt.savefig('github_top10_visitors.png')
 
 # Example usage, replace 'username', 'token', and the repository to exclude
 get_all_repos_unique_views('weitsunglin', api_key, exclude_repo='weitsunglin')
