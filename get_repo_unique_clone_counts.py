@@ -33,16 +33,17 @@ def get_all_repos_unique_clones(username, token, exclude_repo=None):
 
     df = pd.DataFrame(all_clones_data)
 
-    df = df.sort_values(by="Unique Clones", ascending=False)
+    # 排序並取前10個有最多Unique Clones的repositories
+    df = df.sort_values(by="Unique Clones", ascending=False).head(10)
 
     plt.figure(figsize=(12, 8))
     bars = plt.bar(df["Repository"], df["Unique Clones"], color='blue')
     plt.xlabel('Repository')
     plt.ylabel('Unique Clones')
-    plt.title('Unique Clones per Repository')
+    plt.title('Top 10 Repositories by Unique Clones')
     plt.xticks(rotation=90)
     plt.tight_layout()
-    
+
     for bar in bars:
         yval = bar.get_height()
         plt.text(bar.get_x() + bar.get_width()/2, yval, int(yval), va='bottom')  # va: vertical alignment
@@ -52,4 +53,4 @@ def get_all_repos_unique_clones(username, token, exclude_repo=None):
 # Example usage with a placeholder token and username
 # Replace 'username' and 'token' with your actual GitHub username and token
 # Replace 'weitsunglin' with the repository you want to exclude
-get_all_repos_unique_clones('weitsunglin', api_key, exclude_repo='weitsunglin')
+get_all_repos_unique_clones('username', api_key, exclude_repo='weitsunglin')
