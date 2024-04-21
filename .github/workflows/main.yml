@@ -24,7 +24,10 @@ jobs:
       run: |
         python get_repo_unique_clone_counts.py
         python get_repo_unique_views.py
-        
+
+    - name: List files
+      run: ls -la
+  
     - name: Upload generated image
       uses: actions/upload-artifact@v2
       with:
