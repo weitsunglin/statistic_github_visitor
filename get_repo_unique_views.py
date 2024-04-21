@@ -53,7 +53,7 @@ def get_all_repos_unique_views(username, token, exclude_repo=None):
         yval = bar.get_height()
         plt.text(bar.get_x() + bar.get_width()/2, yval, int(yval), va='bottom', ha='center')  # Vertical and horizontal alignment
 
-    plt.savefig('github_top10_visitors.png')
+    plt.savefig('github_visitor.png')
 
 # Example usage, replace 'username', 'token', and the repository to exclude
 get_all_repos_unique_views('weitsunglin', api_key, exclude_repo='weitsunglin')
