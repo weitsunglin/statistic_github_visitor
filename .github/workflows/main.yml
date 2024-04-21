@@ -32,21 +32,3 @@ jobs:
           path: |
             github_clone_counts.png
             github_visitor.png
-
-    - name: Commit and push to another repository
-      env:
-        ACCESS_TOKEN: ${{ secrets.API_KEY }}
-      run: |
-        git config --global user.email "weitsunglin@igs.com"
-        git config --global user.name "weitsunglin"
-        git clone https://github.com/weitsunglin/weitsunglin.git
-        cp github_clone_counts.png weitsunglin/github_clone_counts.png
-        cp github_visitor.png weitsunglin/github_visitor.png
-        cd weitsunglin
-        git add code_exp.png
-        if [[ $(git status --porcelain) ]]; then
-          git commit -m "Update from GitHub Actions"
-          git push https://weitsunglin:${ACCESS_TOKEN}@github.com/weitsunglin/weitsunglin.git main
-        else
-          echo "No changes to commit."
-        fi
