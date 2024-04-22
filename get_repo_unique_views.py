@@ -44,7 +44,7 @@ def get_all_repos_unique_views(username, token, exclude_repo=None):
     bars = plt.bar(df["Repository"], df["Total Unique Views"], color='purple')
     plt.xlabel('Repository')
     plt.ylabel('Total Unique Views')
-    plt.title('Top 10 Repositories by Total Unique Views')
+    plt.title('Last two week Top 10 Repositories by Total Unique Views')
     plt.xticks(rotation=90)  # Rotate x-axis labels for readability
     plt.tight_layout()  # Adjust layout to avoid squeezing
 
