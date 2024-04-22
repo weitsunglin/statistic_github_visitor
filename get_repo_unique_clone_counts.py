@@ -40,7 +40,7 @@ def get_all_repos_unique_clones(username, token, exclude_repo=None):
     bars = plt.bar(df["Repository"], df["Unique Clones"], color='blue')
     plt.xlabel('Repository')
     plt.ylabel('Unique Clones')
-    plt.title('Top 10 Repositories by Unique Clones')
+    plt.title('Last two week Top 10 Repositories by Unique Clones')
     plt.xticks(rotation=90)
     plt.tight_layout()
 
