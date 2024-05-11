@@ -2,6 +2,7 @@ import requests
 import pandas as pd
 import matplotlib.pyplot as plt
 import os
+
 api_key = os.getenv("API_KEY")
 
 def get_all_repos_unique_clones(username, token, exclude_repo=None):
@@ -32,8 +33,6 @@ def get_all_repos_unique_clones(username, token, exclude_repo=None):
         all_clones_data.append({'Repository': repo['name'], 'Unique Clones': total_unique_clones})
 
     df = pd.DataFrame(all_clones_data)
-
-    # 排序並取前10個有最多Unique Clones的repositories
     df = df.sort_values(by="Unique Clones", ascending=False).head(10)
 
     plt.figure(figsize=(6, 8))
@@ -44,10 +43,15 @@ def get_all_repos_unique_clones(username, token, exclude_repo=None):
     plt.xticks(rotation=90)
     plt.tight_layout()
 
+    # 設定y軸只有三個刻度
+    max_clones = df["Unique Clones"].max()
+    plt.ylim(0, max_clones * 1.1)
+    plt.yticks([0, max_clones // 2, max_clones])
+
     for bar in bars:
         yval = bar.get_height()
-        plt.text(bar.get_x() + bar.get_width()/2, yval, int(yval), va='bottom')  # va: vertical alignment
-            
+        plt.text(bar.get_x() + bar.get_width()/2, yval, int(yval), va='bottom')
+    
     plt.savefig('github_clone_counts.png')
 
 # Example usage with a placeholder token and username
