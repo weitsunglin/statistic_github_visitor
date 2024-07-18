@@ -35,7 +35,7 @@ def get_all_repos_unique_views(username, token, exclude_repo=None):
     df = pd.DataFrame(all_unique_views_data)
     df = df.sort_values(by="Total Unique Views", ascending=False).head(10)
 
-    plt.figure(figsize=(6, 8))
+    plt.figure(figsize=(5, 8))
     bars = plt.bar(df["Repository"], df["Total Unique Views"], color='purple')
     plt.xlabel('Repository')
     plt.ylabel('Total Unique Views')
