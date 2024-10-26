@@ -31,7 +31,7 @@ jobs:
       run: ls -la
   
     - name: Upload generated image
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
           name: generated-image
           path: |
