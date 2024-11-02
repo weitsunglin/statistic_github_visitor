@@ -35,7 +35,7 @@ def get_all_repos_unique_clones(username, token, exclude_repo=None):
     df = pd.DataFrame(all_clones_data)
     df = df.sort_values(by="Unique Clones", ascending=False).head(10)
 
-    plt.figure(figsize=(6, 8))
+    plt.figure(figsize=5, 4))
     bars = plt.bar(df["Repository"], df["Unique Clones"], color='blue')
     plt.xlabel('Repository')
     plt.ylabel('Unique Clones')
